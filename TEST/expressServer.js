@@ -51,7 +51,7 @@ app.get('/signup', function(req,res){
 
 app.get('/authResult', function(req, res){
     var authCode = req.query.code
-    console.log(authCode)
+    //console.log(authCode)
     //res.json(authCode);
 
     var option = {
@@ -74,10 +74,24 @@ app.get('/authResult', function(req, res){
             console.error(err);
             throw err;
         }
-        else{
-            console.log(body);
+        else {
+            var accessRequestResult = JSON.parse(body);
+            console.log(accessRequestResult);
+            res.render('resultChild', {data : accessRequestResult} )
+
         }
     })
+})
+
+app.post('/signup', function(req, res){
+    //data req get db store
+    var userName = req.body.userName
+    var userEmail = req.body.userEmail
+    var userPassword = req.body.userPassword
+    var userAccessToken = req.body.userAccessToken
+    var userRefreshToken = req.body.userRefreshToken
+    var userSeqNo = req.body.userSeqNo
+    console.log(userName, userAccessToken, userSeqNo);
 })
 
 app.listen(3000)
