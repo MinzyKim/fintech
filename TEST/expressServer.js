@@ -8,7 +8,7 @@ app.set('view engine', 'ejs'); // ejs라는 템플릿엔진이 파일을 읽어�
 app.use(express.static(path.join(__dirname, 'public')));//to use static asset
 
 app.use(express.json());  
-app.use(express.urlencoded({extended:false}));  
+app.use(express.urlencoded({extended:false}));  //express 에서 json을 보내는걸 허용하겠다
 
 app.get('/', function (req, res) {
     var title = "javascript"
@@ -41,6 +41,11 @@ app.post('/getData', function(req, res){
     var userData=req.body.userInputData;
     console.log('userData = '+ userData);
     res.json(userData + "!!!!!!")
+})
+
+//--------------service start //
+app.get('/signup', function(req,res){
+    res.render('signup')//데이터 받을거 아니니까 render
 })
 
 app.listen(3000)
