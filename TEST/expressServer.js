@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+var request = require('request')
 
 app.set('views', path.join(__dirname, 'views')); //ejs의 view파일이 어디에 있는지 알려줌
 app.set('view engine', 'ejs'); // ejs라는 템플릿엔진이 파일을 읽어오는 디렉토리로 선정하는 구문
@@ -46,6 +47,37 @@ app.post('/getData', function(req, res){
 //--------------service start //
 app.get('/signup', function(req,res){
     res.render('signup')//데이터 받을거 아니니까 render
+})
+
+app.get('/authResult', function(req, res){
+    var authCode = req.query.code
+    console.log(authCode)
+    //res.json(authCode);
+
+    var option = {
+        method: "POST",
+        url : "https://testapi.openbanking.or.kr/oauth/2.0/token",
+        header : {
+            'Content-Type' : 'application/x-www-form-urlencoded'
+        },
+        form : {
+            code: authCode,
+            client_id:'VjmBN2T6n1yY5xWny2lqJdZcMsnMcvJINSVsPp1s',
+            client_secret:'0rmRcngVr87GTQG4VFZeQcQlitHcxV6rmzj5v5HJ',
+            redirect_uri:'http://localhost:3000/authResult',
+            grant_type:'authorization_code'
+
+        }
+    }
+    request(option, function(err, response, body){
+        if(err){
+            console.error(err);
+            throw err;
+        }
+        else{
+            console.log(body);
+        }
+    })
 })
 
 app.listen(3000)
