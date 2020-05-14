@@ -4,6 +4,7 @@ const path = require('path')
 var jwt = require('jsonwebtoken');
 var request = require('request')
 var mysql = require('mysql');
+var auth=require('./lib/auth')
 
 app.set('views', path.join(__dirname, 'views')); //ejs의 view파일이 어디에 있는지 알려줌
 app.set('view engine', 'ejs'); // ejs라는 템플릿엔진이 파일을 읽어오는 디렉토리로 선정하는 구문
@@ -58,6 +59,10 @@ app.post('/getData', function(req, res){
     console.log('userData = '+ userData);
     res.json(userData + "!!!!!!")
 })
+
+app.post('/authTest', auth, function(req, res){
+    res.json('login user!!')
+}) //add middle ware
 
 //--------------service start //
 app.get('/signup', function(req,res){
