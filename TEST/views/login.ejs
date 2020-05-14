@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+	<title>Crypto Mobile Template</title>
+
+	<!-- Google font file. If you want you can change. -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,900" rel="stylesheet">
+
+	<!-- Fontawesome font file css -->
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+
+	<!-- Template global css file. Requared all pages -->
+	<link rel="stylesheet" type="text/css" href="css/global.style.css">
+</head>
+
+<body>
+	
+	<div class="wrapper">
+		<div class="nav-menu">
+			<nav class="menu">
+				
+		
+		</div>
+		<div class="wrapper-inline">
+			<!-- Header area start -->
+			<header> <!-- extra class no-background -->
+				<a class="go-back-link" href="javascript:history.back();"><i class="fa fa-arrow-left"></i></a>
+				<h1 class="page-title">LOGIN</h1>
+				<div class="navi-menu-button">
+					<em></em>
+					<em></em>
+					<em></em>
+				</div>
+			</header>
+			<!-- Header area end -->
+			<!-- Page content start -->
+			<main>
+			
+				<div class="container">
+					<div class="form-divider"></div>
+
+					<div class="form-divider"></div>
+					<div class="form-divider"></div>
+
+					<div class="form-row-group with-icons">
+						<div class="form-row no-padding">
+							<i class="fa fa-envelope"></i>
+							<input type="email" id="userEmail" name="aaa" class="form-element" placeholder="Username or Email">
+						</div>
+						<div class="form-row no-padding">
+							<i class="fa fa-lock"></i>
+							<input type="password" id="userPassword" name="aaa" class="form-element" placeholder="Password">
+						</div>
+					</div>
+
+
+					<div class="form-divider"></div>
+
+                    <div class="form-row">
+                            <button type="button" id="loginBtn" class="button circle block orange">Login</a>
+                        </div>
+
+					<div class="form-row txt-center mt-15">
+						Don't you have an account yet? <a href="/signup" data-loader="show">Sign Up</a>
+					</div>
+
+				</div>
+			</main>
+			<!-- Page content end -->
+		</div>
+	</div>
+
+
+	<!--Page loader DOM Elements. Requared all pages-->
+	<div class="sweet-loader">
+		<div class="box">
+		  	<div class="circle1"></div>
+		  	<div class="circle2"></div>
+		  	<div class="circle3"></div>
+		</div>
+	</div>
+
+	<!-- JQuery library file. requared all pages -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+
+	<!-- Template global script file. requared all pages -->
+	<script src="js/global.script.js"></script>
+<script>
+    $("#loginBtn").click(function(){
+             $.ajax({
+                    url:'http://localhost:3000/login',
+                    type : 'POST',
+                    data : {
+                        userEmail : $("#userEmail").val(),
+                        userPassword : $("#userPassword").val(),
+                    },
+                    success:function(data){
+						if(data =='2'){
+							alert('password is not correct')
+							window.location.href='/login';
+						}
+						else if(data =='3'){
+							alert('there is no email');
+                        }
+                        else{
+                            sessionStorage.setItem('jwtToken', data);
+                        }
+                    }
+                })
+            })
+</script>
+	
+</body>
+
+</html>
