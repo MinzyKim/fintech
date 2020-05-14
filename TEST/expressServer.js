@@ -61,7 +61,7 @@ app.post('/getData', function(req, res){
 })
 
 app.post('/authTest', auth, function(req, res){
-    res.json('login user!!')
+    res.json('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 }) //add middle ware
 
 //--------------service start //
